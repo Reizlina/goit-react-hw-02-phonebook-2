@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
+//  import { Formik } from 'formik';
+import Notiflix from 'notiflix';
 
 import Section from './Section/Section';
 import FormInput from './FormInput/FormInput';
@@ -14,32 +17,33 @@ class Form extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
-  };
-
-  handleChange = e => {
-    this.setState(() => {
-      const { name, value } = e.target;
-      return { [name]: value };
-    });
-  };
-
-  onFormSubmit = e => {
-    e.preventDefault();
-    const { name, number } = this.state;
-    this.setState(prevState => {
-      return {
-        contacts: [...prevState.contacts, { name: name, number: number }],
-      };
-    });
-    e.target.reset();
   };
 
   findContact = e => {
     this.setState(() => {
       return { filter: e.target.value };
     });
+  };
+
+  submitForm = ({ name, number }) => {
+    const nameOfContact = this.state.contacts.find(
+      contact => contact.name === name
+    );
+    if (nameOfContact) {
+      Notiflix.Notify.failure(`${name} is already in contacts`, {
+        position: 'center-center',
+      });
+      return;
+    } else {
+      this.setState(prevState => {
+        return {
+          contacts: [
+            ...prevState.contacts,
+            { name: name, number: number, id: nanoid() },
+          ],
+        };
+      });
+    }
   };
 
   filterContact = () => {
@@ -53,17 +57,27 @@ class Form extends Component {
     });
   };
 
+  deleteContact = idContact => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(
+          contact => contact.id !== idContact
+        ),
+      };
+    });
+  };
+
   render() {
-    const { onFormSubmit, handleChange, findContact } = this;
+    const { findContact, deleteContact } = this;
     const contacts = this.filterContact();
     return (
       <>
         <Section title="Phonebook">
-          <FormInput onFormSubmit={onFormSubmit} onInputChange={handleChange} />
+          <FormInput onFormSubmit={this.submitForm} />
         </Section>
         <Section title="Contacts">
           <SearchContact findContact={findContact} />
-          <Contacts contacts={contacts} />
+          <Contacts contacts={contacts} deleteContact={deleteContact} />
         </Section>
       </>
     );
