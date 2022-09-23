@@ -5,19 +5,23 @@
 .list {
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .item {
   display: flex;
-
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   font-size: 20px;
+  width: 500px;
 }
 
 .button {
   display: block;
-  margin: 0 auto;
+
   padding: 10px 20px;
   background: #ffa580;
   letter-spacing: 2px;

@@ -14,10 +14,13 @@ function Contacts({ contacts, deleteContact }) {
     );
   } else {
     return (
-      <ol className={s.list}>
+      <ul className={s.list}>
         {contacts.map(({ name, number, id }) => (
           <li key={id} className={s.item}>
-            {name}: {number}
+            <p>
+              {name}: {number}
+            </p>
+
             <button
               className={s.button}
               onClick={() => {
@@ -28,7 +31,7 @@ function Contacts({ contacts, deleteContact }) {
             </button>
           </li>
         ))}
-      </ol>
+      </ul>
     );
   }
 }
