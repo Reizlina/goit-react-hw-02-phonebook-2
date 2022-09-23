@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-//  import { Formik } from 'formik';
 import Notiflix from 'notiflix';
+import s from './Form.module.css';
 
 import Section from './Section/Section';
 import FormInput from './FormInput/FormInput';
@@ -10,12 +10,7 @@ import SearchContact from './SearchContact/SearchContact';
 
 class Form extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -32,6 +27,9 @@ class Form extends Component {
     if (nameOfContact) {
       Notiflix.Notify.failure(`${name} is already in contacts`, {
         position: 'center-center',
+        failure: {
+          background: '#ffa580',
+        },
       });
       return;
     } else {
@@ -68,18 +66,18 @@ class Form extends Component {
   };
 
   render() {
-    const { findContact, deleteContact } = this;
+    const { findContact, deleteContact, submitForm } = this;
     const contacts = this.filterContact();
     return (
-      <>
+      <div className={s.wrap}>
         <Section title="Phonebook">
-          <FormInput onFormSubmit={this.submitForm} />
+          <FormInput onFormSubmit={submitForm} />
         </Section>
         <Section title="Contacts">
           <SearchContact findContact={findContact} />
           <Contacts contacts={contacts} deleteContact={deleteContact} />
         </Section>
-      </>
+      </div>
     );
   }
 }
