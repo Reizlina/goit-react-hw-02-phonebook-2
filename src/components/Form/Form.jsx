@@ -32,16 +32,15 @@ class Form extends Component {
         },
       });
       return;
-    } else {
-      this.setState(prevState => {
-        return {
-          contacts: [
-            ...prevState.contacts,
-            { name: name, number: number, id: nanoid() },
-          ],
-        };
-      });
     }
+    this.setState(prevState => {
+      return {
+        contacts: [
+          ...prevState.contacts,
+          { name: name, number: number, id: nanoid() },
+        ],
+      };
+    });
   };
 
   filterContact = () => {

@@ -25,6 +25,7 @@ class FormInput extends Component {
           placeholder="Name"
           className={s.input}
           type="text"
+          value={this.state.name}
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -36,6 +37,7 @@ class FormInput extends Component {
           placeholder="Phone"
           className={s.input}
           type="tel"
+          value={this.state.number}
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import s from './Contacts.module.css';
 
 function Contacts({ contacts, deleteContact }) {
-  if (contacts.length === 0) {
+  if (contacts.length) {
     return (
       <div className={s.wrap}>
         <img
