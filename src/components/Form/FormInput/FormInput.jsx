@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import s from './FormInput.module.css';
 import PropTypes from 'prop-types';
 
+const INITIAL_STATE = { name: '', number: '' };
+
 class FormInput extends Component {
-  state = { name: '', number: '' };
+  state = { ...INITIAL_STATE };
 
   formSubmit = e => {
     e.preventDefault();
     this.props.onFormSubmit(this.state);
-    e.target.reset();
+    this.reset();
+  };
+  reset = () => {
+    this.setState({ ...INITIAL_STATE });
   };
 
   handleChange = e => {
